@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-test-dep
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql-test-dep
+        image: mysql:5.7
+        command: [ "/bin/bash", "-c", "--" ]
+        args: [ "while true; do sleep 30; done;" ]
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
