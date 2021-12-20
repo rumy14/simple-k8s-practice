@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  containers:
+    - name: mysql
+      image: mysql:5.7
+      command: [ "/bin/bash", "-c", "--" ]
+      args: [ "while true; do sleep 30; done;" ]
+      imagePullPolicy: Never
+      resources:
+        limits:
+          memory: "500Mi"

@@ -1,0 +1,34 @@
+version: "3.2"
+services:
+  php:
+    build: 
+      context: .
+    image: php-mysql-demo:1.0.0
+    networks:
+      - frontend
+      - backend
+    environment:
+      - MYSQL_HOST=mysql-app
+      - MYSQL_USER=moeuser
+      - MYSQL_PASSWORD=moepass
+      - MYSQL_DB=moe_db
+    volumes:
+      - ./www/:/var/www/html/
+    ports:
+      - "30001:80"
+    container_name: php-app
+  mysql:
+    image: mysql:5.7
+    networks:
+      - backend
+    ports:
+      - "30601:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_USER=moeuser
+      - MYSQL_PASSWORD=moepass 
+      - MYSQL_DATABASE=moe_db
+    container_name: mysql-app
+networks:
+  frontend:
+  backend:
